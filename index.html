@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+</head>
+
+<body>
+  <h1>Let's find the <span id = "title">SAME</span> charactor !</h1>
+
+  <!-- NEXTボタン -->
+  <div>
+    <input class = "nextButton" type="button" value = "NEXT" onclick="next()"> 
+    <br>
+  </div>
+
+  <!-- クエスチョンボックス -->
+  <div id = "questionBox"></div>
+
+  <!-- 文字表示領域 -->
+  <div>
+    <br>
+    <p  id = "searchField">
+      <span id = str0></span>
+      <span id = str1></span>
+      <span id = str2></span>
+      <span id = str3></span>
+      <span id = str4></span>
+      <span id = str5></span>
+      <span id = str6></span>
+      <span id = str7></span>
+      <span id = str8></span>
+      <span id = str9></span>
+      <span id = str10></span>
+      <span id = str11></span>
+      <span id = str12></span>
+      <span id = str13></span>
+      <span id = str14></span>
+      <span id = str15></span>
+      <span id = str16></span>
+      <span id = str17></span>
+      <span id = str18></span>
+      <span id = str19></span>
+      <span id = str20></span>
+      <span id = str21></span>
+      <span id = str22></span>
+      <span id = str23></span>
+      <span id = str24></span>
+      <span id = str25></span>
+    </p>
+  </div>
+
+  <link rel="stylesheet" href="presentation.css">
+  <!-- <script src="presentation.js"></script>  -->
+  <script type="text/javascript">
+    let charactors = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    let randomNumber = Math.floor(Math.random() * 25);
+    //クエスチョンボックスにランダムで抽出したアルファベットを表示させる
+    let questionBoxNumber = document.getElementById("questionBox");
+    questionBoxNumber.append(charactors[randomNumber]);
+
+    //アルファベットの並びをシャッフルさせた配列を作る
+    function charactorsShuffle(array){
+        let shuffledCharactors = [];
+        for (let i = 0; i < array.length; i++){
+            shuffledCharactors[i] = array[i];
+        }
+        for (let i = 0; i < shuffledCharactors.length; i++){
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = shuffledCharactors[i];
+            shuffledCharactors[i] = shuffledCharactors[j];
+            shuffledCharactors[j] = temp;
+        }
+        return shuffledCharactors;
+    }
+    let newCharactors = charactorsShuffle(charactors);
+
+    //表示領域にランダムに並び替えたアルファベットを表示させる。
+    for (let i = 0; i < newCharactors.length; i++){
+        let id = "str" + i;
+        document.getElementById(id).append(newCharactors[i]);
+    }
+
+    //アルファベットをクリックしたときのイベント
+    function clickEvent(){
+        console.log("問題：" + document.getElementById("questionBox").textContent);
+        console.log("選んだ文字：" + this.textContent);
+        let questionCharactor = document.getElementById("questionBox").textContent;
+        let slectedCharactor = this.textContent;
+        if (questionCharactor === slectedCharactor){
+            window.alert("Yes! It's Correct!! Congratulations!!!!!")
+            this.style.color = "blue";
+        }else{
+            alert("No,it's not the same. Try again!");
+            this.style.color = "red";
+        }
+    }
+    for (let i = 0; i < newCharactors.length; i++){
+        let tempId = "str" + i;
+        document.getElementById(tempId).addEventListener("click", clickEvent);
+    }
+
+    //NEXTボタンを押すとページをリロード
+    function next(){
+        location.reload();
+    }
+    
+  </script>
+</body>
+
+</html>
